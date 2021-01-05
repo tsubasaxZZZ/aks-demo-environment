@@ -2,19 +2,21 @@
 # Provider section #
 ####################
 provider "azurerm" {
-  version = ">= 2.21.0"
+  version = ">= 2.40.0"
   features {}
 }
 
-provider "azuread" {
-  version = ">= 0.6"
-}
 ########################
 # Data sources section #
 ########################
+/*
+provider "azuread" {
+  version = ">= 0.6"
+}
 data "azuread_group" "aks" {
   name = var.aad_group_name
 }
+*/
 #####################
 # Resources section #
 #####################
@@ -30,7 +32,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   resource_group_name             = var.resource_group_name
   dns_prefix                      = var.name
   kubernetes_version              = var.kubernetes_version
-  node_resource_group             = "${var.name}-worker"
+  node_resource_group             = "MC_${var.resource_group_name}_${var.name}-${var.location}"
   private_cluster_enabled         = var.private_cluster
   sku_tier                        = var.sla_sku
   api_server_authorized_ip_ranges = var.api_auth_ips
@@ -42,7 +44,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     vm_size               = var.default_node_pool.vm_size
     type                  = "VirtualMachineScaleSets"
     availability_zones    = var.default_node_pool.zones
-    max_pods              = 250
+    max_pods              = 110
     os_disk_size_gb       = 128
     vnet_subnet_id        = var.vnet_subnet_id
     node_labels           = var.default_node_pool.labels
@@ -59,13 +61,14 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
   role_based_access_control {
     enabled = true
-
+/*
     azure_active_directory {
       managed = true
       admin_group_object_ids = [
         data.azuread_group.aks.id
       ]
     }
+*/
   }
 
   addon_profile {
@@ -86,9 +89,9 @@ resource "azurerm_kubernetes_cluster" "aks" {
     outbound_type      = "loadBalancer"
     network_plugin     = "azure"
     network_policy     = "calico"
-    dns_service_ip     = "10.0.0.10"
+    dns_service_ip     = "192.168.0.10"
     docker_bridge_cidr = "172.17.0.1/16"
-    service_cidr       = "10.0.0.0/16"
+    service_cidr       = "192.168.0.0/16"
   }
 }
 

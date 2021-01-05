@@ -8,7 +8,7 @@ variable "target_resource_id" {
   type        = string
 }
 
-variable "storage_account_id" {
+variable "log_analytics_workspace_id" {
   description = "The resource id of the Storage Account where the diagnostic logs will be stored"
   type        = string
 }

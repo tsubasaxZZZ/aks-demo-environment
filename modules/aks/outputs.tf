@@ -30,6 +30,7 @@ output "kubelet_user_assigned_identity_id" {
   value = azurerm_kubernetes_cluster.aks.kubelet_identity[0].user_assigned_identity_id
 }
 
+/*
 output "host" {
   value = azurerm_kubernetes_cluster.aks.kube_admin_config[0].host
 }
@@ -48,3 +49,4 @@ output "cluster_ca_certificate" {
   value     = azurerm_kubernetes_cluster.aks.kube_admin_config[0].cluster_ca_certificate
   sensitive = true
 }
+*/
