@@ -37,6 +37,7 @@ git clone https://github.com/tsubasaxZZZ/aks-demo-environment.git
 #### Terraform の実行
 
 ```
+terraform init
 terraform plan -var resource_group_name=<リソース グループ名> -var location=<リージョン(AZがあるリージョン)> -out plan.tfplan
 例) terraform plan -var resource_group_name=rg-aksdemo2 -var location=southeastasia -out plan.tfplan
 terraform apply plan.tfplan
