@@ -328,7 +328,7 @@ resource "azurerm_api_management_api" "sample-app" {
   path                  = "uploader"
   protocols             = ["http"]
   subscription_required = false
-  service_url           = "http://10.240.0.14/api"
+  service_url           = "http://10.0.2.254/api"
 
   import {
     content_format = "openapi+json-link"
@@ -349,7 +349,7 @@ locals {
   appgw_listener_name                  = "Listener1"
   appgw_request_routing_rule_name      = "Rule1"
   appgw_probe_name                     = "Probe1"
-  appgw_probe_path                     = "/"
+  appgw_probe_path                     = "/uploader/actuator/health"
 }
 resource "azurerm_public_ip" "appgw" {
   name                = local.appgw_frontend_ip_name
