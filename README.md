@@ -49,3 +49,15 @@ terraform apply plan.tfplan
 1. 必要なところを書き換え
 1. apply
     - `kubectl apply -f deployment.yaml`
+
+### 4. 確認
+
+以下へアクセス。
+
+`http://<Application Gateway の IP アドレス>/uploader/actuator/health`
+
+以下の様なレスポンスが返ってくることを確認。
+
+```
+{"status":"UP","components":{"db":{"status":"UP","details":{"database":"Microsoft SQL Server","result":1,"validationQuery":"SELECT 1"}},"diskSpace":{"status":"UP","details":{"total":133018140672,"free":117697044480,"threshold":10485760}},"ping":{"status":"UP"}}}
+```
