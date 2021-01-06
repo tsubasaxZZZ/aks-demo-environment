@@ -455,3 +455,14 @@ resource "null_resource" "generate-deployment" {
     local.deployment_content)
   }
 }
+###################
+# Generate AKS infomation
+###################
+resource "null_resource" "generate-aks-information" {
+  triggers = {
+    template = local.deployment_content
+  }
+  provisioner "local-exec" {
+    command = "echo ${module.demo-aks.name} > aks-name"
+  }
+}

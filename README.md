@@ -4,7 +4,11 @@
 
 ### 最も簡単な方法
 
+Cloud Shell を使って以下を実行。
+
 ```
+az account list
+az account set --subscription <展開先のサブスクリプション>
 curl -sL https://raw.githubusercontent.com/tsubasaxZZZ/aks-demo-environment/master/setup.sh | sh -s <リソース グループ名> <リージョン(AZのあるリージョン)>
 
 例) curl -sL https://raw.githubusercontent.com/tsubasaxZZZ/aks-demo-environment/master/setup.sh | sh -s rg-aksdemo1 southeastasia
