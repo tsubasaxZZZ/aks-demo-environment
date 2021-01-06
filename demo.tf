@@ -254,7 +254,7 @@ resource "azurerm_sql_virtual_network_rule" "sqlserver-endpoint-default" {
 # API Management
 ###################
 resource "azurerm_api_management" "aksdemo" {
-  name                = "apim-aksdemo"
+  name                = "apim-aksdemo${random_string.uniqstr.result}"
   resource_group_name = module.resource_group.name
   location            = module.resource_group.location
   publisher_name      = "Contoso"
