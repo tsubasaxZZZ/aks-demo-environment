@@ -434,3 +434,24 @@ resource "azurerm_application_insights" "aksdemo" {
   location            = module.resource_group.location
   application_type    = "web"
 }
+
+###################
+# Generate deployment.yaml
+###################
+locals {
+  deployment_content = templatefile("${path.module}/deployment.yaml.tmpl", {
+    STORAGE_CONNECTION_STRING             = azurerm_storage_account.storage.primary_connection_string
+    DATABASE_URL                          = "jdbc:sqlserver://${azurerm_sql_server.sqlserver.name}.database.windows.net:1433;database=aksdemo;user=sqldbadmin@${azurerm_sql_server.sqlserver.name};password=Password1!;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;"
+    APPLICATIONINSIGHTS_CONNECTION_STRING = azurerm_application_insights.aksdemo.connection_string
+  })
+}
+resource "null_resource" "generate-deployment" {
+  triggers = {
+    template = local.deployment_content
+  }
+  provisioner "local-exec" {
+    command = format("cat <<\"EOF\" > \"%s\"\n%s\nEOF",
+      "deployment.yaml",
+    local.deployment_content)
+  }
+}
