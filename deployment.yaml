@@ -19,13 +19,13 @@ spec:
               name: uploader
               env:
               - name: STORAGE_CONNECTION_STRING
-                value: "DefaultEndpointsProtocol=https;AccountName=saahonhd;AccountKey=iVN6ltARtkb1S2JTQR1pAJx+zOXVcv7CRjcH0kMN/YNMeyrMtkXPL31uoJ8jw6aN3nmiqY9aGjuAUW7GqBIsQA==;EndpointSuffix=core.windows.net"
+                value: "DefaultEndpointsProtocol=https;AccountName=saahonhd;AccountKey=mw81MsKjReqtQZttozPEtlfN/CS34CqGkvEXBIPjPoQ8e4KiqXp569W9kNClHFCqFJiRBOvFvc08NlC+6zXkYw==;EndpointSuffix=core.windows.net"
               - name: STORAGE_CONTAINER_NAME
                 value: "container"
               - name: DATABASE_URL
                 value: "jdbc:sqlserver://sqldbahonhd.database.windows.net:1433;database=aksdemo;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;"
               - name: DATABASE_USERNAME
-                value: "sqladmin"
+                value: "sqldbadmin"
               - name: DATABASE_PASSWORD
                 value: "Password1!"
               - name: SERVER_PORT
@@ -66,3 +66,4 @@ spec:
   selector:
     run: uploader
   type: LoadBalancer
+  loadBalancerIP: 10.0.2.254
