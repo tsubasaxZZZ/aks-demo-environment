@@ -16,4 +16,4 @@ terraform init
 
 terraform apply -target random_string.uniqstr -var resource_group_name=$rg -var location=$location -auto-approve
 terraform plan -var resource_group_name=$rg -var location=$location -out plan.tfplan
-terraform apply plan.tfplan -auto-approve
+terraform apply plan.tfplan
