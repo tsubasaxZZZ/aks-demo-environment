@@ -17,3 +17,7 @@ terraform init
 terraform apply -target random_string.uniqstr -var resource_group_name=$rg -var location=$location -auto-approve
 terraform plan -var resource_group_name=$rg -var location=$location -out plan.tfplan
 terraform apply plan.tfplan
+
+az aks get-credentials -g $rg -n $(cat aks-name)
+
+kubectl apply -f deployment.yaml
