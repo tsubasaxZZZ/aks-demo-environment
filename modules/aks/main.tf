@@ -44,7 +44,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     vm_size               = var.default_node_pool.vm_size
     type                  = "VirtualMachineScaleSets"
     availability_zones    = var.default_node_pool.zones
-    max_pods              = 110
+    max_pods              = 30
     os_disk_size_gb       = 128
     vnet_subnet_id        = var.vnet_subnet_id
     node_labels           = var.default_node_pool.labels
