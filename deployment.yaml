@@ -66,3 +66,4 @@ spec:
   selector:
     run: uploader
   type: LoadBalancer
+  loadBalancerIP: 10.0.2.254
