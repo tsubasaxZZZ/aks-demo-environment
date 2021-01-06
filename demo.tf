@@ -1,4 +1,5 @@
 variable "resource_group_name" {}
+variable "location" {}
 
 provider "azurerm" {
   version = "=2.40.0"
@@ -15,7 +16,7 @@ resource "random_string" "uniqstr" {
 }
 module "resource_group" {
   source   = "./modules/resource_group"
-  location = "southeastasia"
+  location = var.location
   name     = var.resource_group_name
 }
 module "acr" {
