@@ -4,17 +4,45 @@
 
 ### 最も簡単な方法
 
-Cloud Shell を使って以下を実行。
+Cloud Shell を使って以下を実行します。
 
 ```
 az account list
 az account set --subscription <展開先のサブスクリプション>
 curl -sL https://raw.githubusercontent.com/tsubasaxZZZ/aks-demo-environment/master/setup.sh | sh -s <リソース グループ名> <リージョン(AZのあるリージョン)>
 
-例) curl -sL https://raw.githubusercontent.com/tsubasaxZZZ/aks-demo-environment/master/setup.sh | sh -s rg-aksdemo1 southeastasia
+例) curl -sL https://raw.githubusercontent.com/tsubasaxZZZ/aks-demo-environment/master/setup.sh | sh -s rg-aksdemo1 southeastasia | tee aksdemo_setup.log
 ```
 
-これ以降の手順は setup.sh の手順をステップバイステップで実行するものです。
+成功すると最後に以下が出力されます。
+
+※同じ結果が `aksdemo_setup.log` に出力されるため、あとで確認することもできます。
+
+```
+Apply complete! Resources: 53 added, 0 changed, 0 destroyed.
+
+The state of your infrastructure has been saved to the path
+below. This state is required to modify and destroy your
+infrastructure, so keep it safe. To inspect the complete state
+use the `terraform show` command.
+
+State path: terraform.tfstate
+The behavior of this command has been altered by the following extension: aks-preview
+Merged "aksdemowv6y5x" as current context in /home/tsubasa/.kube/config
+deployment.apps/uploader created
+service/uploader created
+```
+
+`kubectl` を実行すると展開されている Pod が確認できます。
+
+```
+kubectl  get po
+```
+
+[4. 確認](#validation) の手順で Application Gateway 経由でアプリケーションの展開が確認できます。
+
+
+これ以降の手順はこの手順をステップバイステップで実行するものです。
 
 ### 1. Terraform 実行環境のセットアップ
 
@@ -85,7 +113,7 @@ terraform apply plan.tfplan
 2. 生成された deployment.yaml で AKS へデプロイ。
    - `kubectl apply -f deployment.yaml`
 
-### 4. 確認
+### <a name="validation"></a>4. 確認
 
 以下へアクセス。
 

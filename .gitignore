@@ -35,3 +35,4 @@ override.tf.json
 terraform.rc
 
 deployment.yaml
+aks-name
