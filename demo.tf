@@ -1,5 +1,6 @@
 variable "resource_group_name" {}
 variable "location" {}
+variable "aks-version" {}
 
 provider "azurerm" {
   version = "=2.40.0"
@@ -169,7 +170,7 @@ module "demo-aks" {
   location                   = module.resource_group.location
   container_registry_id      = module.acr.id
   log_analytics_workspace_id = module.la.id
-  kubernetes_version         = "1.19.3"
+  kubernetes_version         = var.aks-version
   private_cluster            = false
   default_node_pool = {
     name                           = "nodepool"
